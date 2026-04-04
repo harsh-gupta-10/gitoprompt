@@ -31,7 +31,7 @@ export function ExampleChips({ onSelect }: ExampleChipsProps) {
             onSelect(ex.repo);
             setTimeout(() => setActive(null), 600);
           }}
-          className="chip-pop relative px-3 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 cursor-pointer overflow-hidden group"
+          className="chip-pop relative px-3 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 cursor-pointer overflow-hidden group flex items-center gap-1.5"
           style={{ 
             animationDelay: `${0.12 + i * 0.055}s`,
             background: 'var(--chip-bg)',
@@ -67,7 +67,7 @@ export function ExampleChips({ onSelect }: ExampleChipsProps) {
 
           {/* Color dot */}
           <span
-            className="inline-block w-1.5 h-1.5 rounded-full mr-1.5 -mb-px"
+            className="flex-shrink-0 w-1.5 h-1.5 rounded-full"
             style={{ background: ex.color, boxShadow: `0 0 5px ${ex.color}80` }}
           />
           {ex.label}
