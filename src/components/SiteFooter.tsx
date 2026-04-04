@@ -27,7 +27,7 @@ export function SiteFooter() {
           <div className="w-px h-3 bg-white/10 mx-2 hidden sm:block"></div>
           {/* GitHub link */}
           <a
-            href="https://github.com/mrmani10/gitoprompt"
+            href="https://github.com/harsh-gupta-10/gitoprompt"
             target="_blank"
             rel="noopener noreferrer"
             className="p-1 rounded-lg hover:bg-white/5 transition-colors"

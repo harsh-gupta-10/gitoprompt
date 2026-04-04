@@ -55,7 +55,7 @@ export function Navbar() {
 
         {/* GitHub link */}
         <a
-          href="https://github.com"
+          href="https://github.com/harsh-gupta-10/gitoprompt"
           target="_blank"
           rel="noopener noreferrer"
           className="group relative p-2 rounded-xl hover:bg-[#1A1A1A] transition-all duration-200 cursor-pointer"
