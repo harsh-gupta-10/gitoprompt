@@ -16,7 +16,7 @@ GitoPrompt is an intelligent tool that fetches your GitHub repositories and gene
 
 ## Tech Stack 🛠️
 
-- **Frontend**: React 18 + TypeScript + Vite
+- **Frontend**: React 18 + TypeScript + Vite8
 - **Styling**: Tailwind CSS
 - **Database**: Supabase (PostgreSQL)
 - **AI**: NVIDIA API (Mixtral/other models)
