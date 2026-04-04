@@ -1,0 +1,242 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Outfit:wght@700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap');
+@import "tailwindcss";
+
+/* ── Design Tokens ── */
+:root {
+  --bg: #F5F0E8;
+  --bg-2: #EAE4D9;
+  --ink: #1A1A1A;
+  --red: #E5342A;
+  --yellow: #F5C842;
+  --green: #22c55e;
+  --card-bg: #1A1A1A;
+  --border: rgba(26, 26, 26, 0.12);
+  --shadow-hard: 4px 4px 0px 0px rgba(26,26,26,1);
+  --shadow-btn: 2px 2px 0px 0px rgba(26,26,26,1);
+  --font-display: 'Outfit', sans-serif;
+  --font-body: 'Plus Jakarta Sans', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+/* ── Base ── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Keyframes ── */
+
+/* Float up-down */
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33% { transform: translateY(-10px) rotate(2deg); }
+  66% { transform: translateY(4px) rotate(-1deg); }
+}
+
+/* Slow spin */
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Heartbeat pulse */
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  14% { transform: scale(1.08); }
+  28% { transform: scale(1); }
+  42% { transform: scale(1.05); }
+  70% { transform: scale(1); }
+}
+
+/* Shimmer sweep */
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+/* Fade slide up */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Fade slide down */
+@keyframes fade-down {
+  from { opacity: 0; transform: translateY(-12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Fade in scale */
+@keyframes fade-scale {
+  from { opacity: 0; transform: scale(0.92); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Glow pulse */
+@keyframes glow-red {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(229,52,42,0); }
+  50% { box-shadow: 0 0 18px 4px rgba(229,52,42,0.25); }
+}
+
+/* Typing cursor blink */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Dot loading bounce */
+@keyframes bounce-dot {
+  0%, 80%, 100% { transform: scale(0); opacity: 0.3; }
+  40% { transform: scale(1); opacity: 1; }
+}
+
+/* Hue rotate for gradient */
+@keyframes hue-cycle {
+  from { filter: hue-rotate(0deg); }
+  to { filter: hue-rotate(30deg); }
+}
+
+/* Slide in from left */
+@keyframes slide-left {
+  from { opacity: 0; transform: translateX(-16px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* Orbit for sparkles */
+@keyframes orbit {
+  from { transform: rotate(0deg) translateX(14px) rotate(0deg); }
+  to { transform: rotate(360deg) translateX(14px) rotate(-360deg); }
+}
+
+/* Scan line across */
+@keyframes scan-line {
+  0% { transform: translateY(-100%); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(400px); opacity: 0; }
+}
+
+/* Shake on error */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-6px); }
+  40% { transform: translateX(6px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(4px); }
+}
+
+/* Stagger chip pop */
+@keyframes pop-in {
+  0% { opacity: 0; transform: scale(0.7) translateY(6px); }
+  70% { transform: scale(1.06) translateY(-2px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* Grid dot fade in */
+@keyframes grid-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ── Animation Utility Classes ── */
+.anim-float       { animation: float 5s ease-in-out infinite; }
+.anim-float-2     { animation: float 6.5s ease-in-out infinite 1s; }
+.anim-float-3     { animation: float 4.5s ease-in-out infinite 2s; }
+.anim-spin-slow   { animation: spin-slow 12s linear infinite; }
+.anim-heartbeat   { animation: heartbeat 2.4s ease-in-out infinite; }
+.anim-glow-red    { animation: glow-red 2s ease-in-out infinite; }
+.anim-fade-up     { animation: fade-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.anim-fade-down   { animation: fade-down 0.4s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.anim-fade-scale  { animation: fade-scale 0.5s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.anim-slide-left  { animation: slide-left 0.4s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.anim-shake       { animation: shake 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) both; }
+
+/* Staggered delays */
+.delay-1 { animation-delay: 0.05s; }
+.delay-2 { animation-delay: 0.1s; }
+.delay-3 { animation-delay: 0.15s; }
+.delay-4 { animation-delay: 0.2s; }
+.delay-5 { animation-delay: 0.25s; }
+.delay-6 { animation-delay: 0.30s; }
+.delay-7 { animation-delay: 0.35s; }
+.delay-8 { animation-delay: 0.40s; }
+
+/* Pop-in chips */
+.chip-pop {
+  animation: pop-in 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+/* ── Custom Scrollbar ── */
+.custom-scrollbar::-webkit-scrollbar { width: 4px; }
+.custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 99px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+/* ── Shimmer placeholder ── */
+.shimmer-text {
+  background: linear-gradient(90deg, #aaa 25%, #ddd 50%, #aaa 75%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 1.5s linear infinite;
+}
+
+/* ── Background grid pattern ── */
+.bg-grid {
+  background-image: 
+    linear-gradient(rgba(26,26,26,0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(26,26,26,0.045) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* ── Scan line (inside the dark cards) ── */
+.scan-line-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+.scan-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(245, 200, 66, 0.6), transparent);
+  animation: scan-line 2.5s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* ── Dot loader ── */
+.dot-loader span {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  animation: bounce-dot 1.4s ease-in-out infinite both;
+}
+.dot-loader span:nth-child(1) { animation-delay: 0s; }
+.dot-loader span:nth-child(2) { animation-delay: 0.16s; }
+.dot-loader span:nth-child(3) { animation-delay: 0.32s; }
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
