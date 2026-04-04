@@ -5,6 +5,7 @@ export interface GitHubRepoData {
   stars: number;
   fileTree: string;
   readme: string;
+  pushedAt: string; // ISO timestamp of last push — used for cache invalidation
 }
 
 export interface ParsedRepo {

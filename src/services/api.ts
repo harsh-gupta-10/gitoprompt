@@ -123,7 +123,32 @@ export async function fetchGitHubData(owner: string, repo: string): Promise<GitH
     stars: repoJson.stargazers_count,
     fileTree,
     readme,
+    pushedAt: repoJson.pushed_at || '',
   };
+}
+
+/**
+ * Lightweight call — fetches only the repo metadata to check `pushed_at`.
+ * Uses minimal bandwidth compared to the full fetchGitHubData.
+ */
+export async function fetchRepoPushedAt(owner: string, repo: string): Promise<string> {
+  const headers: Record<string, string> = {
+    Accept: 'application/vnd.github.v3+json',
+  };
+
+  const token = import.meta.env.VITE_GITHUB_TOKEN;
+  if (token && token !== 'your_github_token_here' && token !== '') {
+    headers.Authorization = `token ${token}`;
+  }
+
+  const res = await fetch(`https://api.github.com/repos/${owner}/${repo}`, { headers });
+  if (!res.ok) {
+    // If we can't check, treat cache as valid to avoid breaking the flow
+    console.warn(`Could not check repo freshness: ${res.status}`);
+    return '';
+  }
+  const json = await res.json();
+  return json.pushed_at || '';
 }
 
 export async function callAI(apiKey: string, repoData: GitHubRepoData) {

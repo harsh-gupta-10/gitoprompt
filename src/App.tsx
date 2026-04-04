@@ -8,7 +8,7 @@ import { FloatingBMC } from './components/FloatingBMC';
 import { HowItWorks } from './components/HowItWorks';
 import { FAQ } from './components/FAQ';
 import { SiteFooter } from './components/SiteFooter';
-import { fetchGitHubData, callAI } from './services/api';
+import { fetchGitHubData, callAI, fetchRepoPushedAt } from './services/api';
 import { parseRepoInput } from './utils/repoParser';
 import { STORAGE_KEY } from './constants';
 import { supabase } from './lib/supabase';
@@ -16,6 +16,7 @@ import { supabase } from './lib/supabase';
 // Animated loading stage indicator
 const STAGES = [
   'Checking database cache...',
+  'Verifying repo freshness...',
   'Fetching repository data from GitHub...',
   'Generating prompt with NVIDIA AI...',
 ];
@@ -25,7 +26,7 @@ function LoadingStage({ stage }: { stage: string }) {
   return (
     <div className="w-full mb-8 anim-fade-down" key={stage}>
       {/* Steps row */}
-      <div className="flex items-center justify-center gap-2 mb-3 overflow-x-auto pb-1">
+      <div className="flex items-center justify-center gap-2 mb-3 overflow-x-auto pb-1 scrollbar-hide">
         {STAGES.map((s, i) => (
           <div key={s} className="flex items-center gap-2 shrink-0">
             <div
@@ -33,11 +34,12 @@ function LoadingStage({ stage }: { stage: string }) {
               style={{ opacity: i > idx ? 0.3 : 1 }}
             >
               <span
-                className="w-5 h-5 rounded-full text-[10px] font-black flex items-center justify-center transition-all duration-300"
+                className="w-5 h-5 rounded-full text-[10px] font-black flex items-center justify-center transition-all duration-300 shrink-0"
                 style={{
                   background: i < idx ? 'var(--green)' : i === idx ? 'var(--red)' : 'var(--border)',
                   color: i <= idx ? 'white' : 'var(--ink)',
                   transform: i === idx ? 'scale(1.15)' : 'scale(1)',
+                  flex: '0 0 auto'
                 }}
               >
                 {i < idx ? '✓' : i + 1}
@@ -112,35 +114,79 @@ export default function App() {
     try {
       const repoIdentifier = `${parsed.owner}/${parsed.repo}`;
 
+      // ── Step 1: Check database cache ──
       setLoadingStage('Checking database cache...');
       const { data: cached } = await supabase
         .from('repo_prompts')
-        .select('prompt_text, file_tree')
+        .select('prompt_text, file_tree, pushed_at')
         .eq('repo_name', repoIdentifier)
         .single();
 
       if (cached && cached.prompt_text) {
-        if (cached.file_tree) setRepoTree(cached.file_tree);
-        setResult(cached.prompt_text);
-        window.history.pushState({}, '', `/${repoIdentifier}`);
-        return;
+        // ── Step 2: Verify repo freshness against cached pushed_at ──
+        setLoadingStage('Verifying repo freshness...');
+        let isStale = false;
+
+        try {
+          const currentPushedAt = await fetchRepoPushedAt(parsed.owner, parsed.repo);
+          if (currentPushedAt && cached.pushed_at) {
+            // Repo has been updated since we cached the prompt
+            isStale = new Date(currentPushedAt).getTime() > new Date(cached.pushed_at).getTime();
+          } else if (currentPushedAt && !cached.pushed_at) {
+            // Old cache entry without pushed_at — treat as stale to backfill
+            isStale = true;
+          }
+          // If we couldn't fetch pushed_at (rate limit, etc.), serve cache
+        } catch {
+          console.warn('Freshness check failed, serving cached prompt.');
+        }
+
+        if (!isStale) {
+          // Cache is fresh — serve it directly
+          if (cached.file_tree) setRepoTree(cached.file_tree);
+          setResult(cached.prompt_text);
+          window.history.pushState({}, '', `/${repoIdentifier}`);
+          return;
+        }
+
+        // Cache is stale — fall through to regenerate
+        console.log(`Cache stale for ${repoIdentifier}, regenerating...`);
       }
 
+      // ── Step 3: Fetch full repo data from GitHub ──
       setLoadingStage('Fetching repository data from GitHub...');
       const repoData = await fetchGitHubData(parsed.owner, parsed.repo);
       setRepoTree(repoData.fileTree);
 
+      // ── Step 4: Generate prompt with AI ──
       setLoadingStage('Generating prompt with NVIDIA AI...');
       const promptResult = await callAI(apiKey, repoData);
       setResult(promptResult.text);
 
-      const { error: insertError } = await supabase.from('repo_prompts').insert({
-        repo_name: repoIdentifier,
-        prompt_text: promptResult.text,
-        raw_json: promptResult.raw,
-        file_tree: repoData.fileTree,
-      });
-      if (insertError) console.error('Cache save error:', insertError);
+      // ── Step 5: Save / update cache in Supabase ──
+      if (cached) {
+        // Update existing row (cache was stale)
+        const { error: updateError } = await supabase
+          .from('repo_prompts')
+          .update({
+            prompt_text: promptResult.text,
+            raw_json: promptResult.raw,
+            file_tree: repoData.fileTree,
+            pushed_at: repoData.pushedAt || null,
+          })
+          .eq('repo_name', repoIdentifier);
+        if (updateError) console.error('Cache update error:', updateError);
+      } else {
+        // Insert new row
+        const { error: insertError } = await supabase.from('repo_prompts').insert({
+          repo_name: repoIdentifier,
+          prompt_text: promptResult.text,
+          raw_json: promptResult.raw,
+          file_tree: repoData.fileTree,
+          pushed_at: repoData.pushedAt || null,
+        });
+        if (insertError) console.error('Cache save error:', insertError);
+      }
 
       window.history.pushState({}, '', `/${repoIdentifier}`);
     } catch (err: unknown) {
