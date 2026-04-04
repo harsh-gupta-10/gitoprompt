@@ -39,13 +39,20 @@ export function HowItWorks() {
     <section className="w-full py-20 anim-fade-up">
       <div className="max-w-[720px] mx-auto px-6">
         <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-[#1A1A1A]/12 bg-white/60 backdrop-blur-sm text-[10px] font-bold uppercase tracking-widest text-[#1A1A1A]/50 mb-4">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#22c55e]" />
+          <div 
+            className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full backdrop-blur-sm text-[10px] font-bold uppercase tracking-widest mb-4"
+            style={{ 
+              border: '1px solid var(--border)',
+              background: 'var(--badge-bg)',
+              color: 'var(--ink-muted)'
+            }}
+          >
+            <span className="w-1.5 h-1.5 rounded-full" style={{ background: 'var(--green)' }} />
             Simple & Fast
           </div>
           <h2
-            className="text-3xl sm:text-4xl font-black tracking-tight text-[#1A1A1A]"
-            style={{ fontFamily: 'var(--font-display)' }}
+            className="text-3xl sm:text-4xl font-black tracking-tight"
+            style={{ fontFamily: 'var(--font-display)', color: 'var(--ink)' }}
           >
             How It Works
           </h2>
@@ -55,22 +62,32 @@ export function HowItWorks() {
           {steps.map((item) => (
             <div
               key={item.step}
-              className="relative p-6 rounded-2xl border-2 border-[#1A1A1A] bg-white transition-all duration-200 hover:-translate-y-1"
-              style={{ boxShadow: '4px 4px 0px 0px rgba(26,26,26,1)' }}
+              className="relative p-6 rounded-2xl transition-all duration-200 hover:-translate-y-1"
+              style={{ 
+                border: '2px solid var(--border-strong)',
+                background: 'var(--bg-3)',
+                boxShadow: 'var(--shadow-hard)'
+              }}
             >
-              <div className="w-10 h-10 rounded-xl bg-[#E5342A] flex items-center justify-center text-white mb-4">
+              <div 
+                className="w-10 h-10 rounded-xl flex items-center justify-center text-white mb-4"
+                style={{ background: 'var(--red)' }}
+              >
                 {item.icon}
               </div>
-              <div className="text-[10px] font-black text-[#E5342A] uppercase tracking-widest mb-1">
+              <div 
+                className="text-[10px] font-black uppercase tracking-widest mb-1"
+                style={{ color: 'var(--red)' }}
+              >
                 Step {item.step}
               </div>
               <h3
-                className="text-base font-black text-[#1A1A1A] mb-2"
-                style={{ fontFamily: 'var(--font-display)' }}
+                className="text-base font-black mb-2"
+                style={{ fontFamily: 'var(--font-display)', color: 'var(--ink)' }}
               >
                 {item.title}
               </h3>
-              <p className="text-[13px] text-black/45 leading-relaxed">
+              <p className="text-[13px] leading-relaxed" style={{ color: 'var(--ink-muted)' }}>
                 {item.desc}
               </p>
             </div>

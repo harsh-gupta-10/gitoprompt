@@ -35,8 +35,8 @@ function LoadingStage({ stage }: { stage: string }) {
               <span
                 className="w-5 h-5 rounded-full text-[10px] font-black flex items-center justify-center transition-all duration-300"
                 style={{
-                  background: i < idx ? '#22c55e' : i === idx ? '#E5342A' : 'rgba(26,26,26,0.1)',
-                  color: i <= idx ? 'white' : '#1A1A1A',
+                  background: i < idx ? 'var(--green)' : i === idx ? 'var(--red)' : 'var(--border)',
+                  color: i <= idx ? 'white' : 'var(--ink)',
                   transform: i === idx ? 'scale(1.15)' : 'scale(1)',
                 }}
               >
@@ -44,7 +44,7 @@ function LoadingStage({ stage }: { stage: string }) {
               </span>
               <span
                 className="text-[10px] font-bold uppercase tracking-wider hidden sm:block"
-                style={{ color: i === idx ? '#E5342A' : i < idx ? '#22c55e' : '#1A1A1A' }}
+                style={{ color: i === idx ? 'var(--red)' : i < idx ? 'var(--green)' : 'var(--ink)' }}
               >
                 {s.replace('...', '').split(' ').slice(0, 2).join(' ')}
               </span>
@@ -52,7 +52,7 @@ function LoadingStage({ stage }: { stage: string }) {
             {i < STAGES.length - 1 && (
               <div
                 className="w-6 h-px transition-all duration-300"
-                style={{ background: i < idx ? '#22c55e' : 'rgba(26,26,26,0.15)' }}
+                style={{ background: i < idx ? 'var(--green)' : 'var(--border)' }}
               />
             )}
           </div>
@@ -60,7 +60,7 @@ function LoadingStage({ stage }: { stage: string }) {
       </div>
 
       {/* Active label + dot loader */}
-      <div className="flex items-center justify-center gap-2.5 text-[#E5342A]">
+      <div className="flex items-center justify-center gap-2.5" style={{ color: 'var(--red)' }}>
         <div className="dot-loader flex gap-1">
           <span /><span /><span />
         </div>
@@ -194,7 +194,7 @@ export default function App() {
           top: '50%',
           left: '50%',
           transform: 'translate(-50%, -60%)',
-          background: 'radial-gradient(circle, rgba(229,52,42,0.06) 0%, transparent 70%)',
+          background: `radial-gradient(circle, var(--glow-color) 0%, transparent 70%)`,
           filter: 'blur(30px)',
         }}
       />
@@ -227,21 +227,29 @@ export default function App() {
           </div>
 
           {/* Badge */}
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-[#1A1A1A]/12 bg-white/60 backdrop-blur-sm text-[10px] font-bold uppercase tracking-widest text-[#1A1A1A]/50 mb-5 anim-fade-down" style={{ animationDelay: '0.1s' }}>
-            <span className="w-1.5 h-1.5 rounded-full bg-[#E5342A] anim-heartbeat" />
+          <div 
+            className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full backdrop-blur-sm text-[10px] font-bold uppercase tracking-widest mb-5 anim-fade-down" 
+            style={{ 
+              animationDelay: '0.1s',
+              border: '1px solid var(--border)',
+              background: 'var(--badge-bg)',
+              color: 'var(--ink-muted)'
+            }}
+          >
+            <span className="w-1.5 h-1.5 rounded-full anim-heartbeat" style={{ background: 'var(--red)' }} />
             NVIDIA AI
           </div>
 
           {/* Main heading */}
           <h1
-            className="text-4xl sm:text-6xl font-black leading-[1.05] tracking-tight text-[#1A1A1A] mb-4 anim-fade-up"
-            style={{ animationDelay: '0.15s', fontFamily: 'var(--font-display)' }}
+            className="text-4xl sm:text-6xl font-black leading-[1.05] tracking-tight mb-4 anim-fade-up"
+            style={{ animationDelay: '0.15s', fontFamily: 'var(--font-display)', color: 'var(--ink)' }}
           >
             Repository
             <span className="relative mx-2 inline-block">
               <span
                 className="relative z-10"
-                style={{ color: '#E5342A' }}
+                style={{ color: 'var(--red)' }}
               >
                 to
               </span>
@@ -250,8 +258,8 @@ export default function App() {
           </h1>
 
           <p
-            className="text-sm sm:text-[15px] text-black/40 max-w-[380px] mx-auto leading-relaxed font-medium anim-fade-up"
-            style={{ animationDelay: '0.22s' }}
+            className="text-sm sm:text-[15px] max-w-[380px] mx-auto leading-relaxed font-medium anim-fade-up"
+            style={{ animationDelay: '0.22s', color: 'var(--ink-muted)' }}
           >
             Reverse-engineer any GitHub repository into the AI prompt that created it.
           </p>
@@ -266,10 +274,10 @@ export default function App() {
             className="w-full rounded-[24px] p-5 transition-all duration-300"
             style={{
               background: 'var(--bg-2)',
-              border: '2px solid #1A1A1A',
+              border: '2px solid var(--border-strong)',
               boxShadow: inputFocused
-                ? '4px 4px 0px 0px #E5342A'
-                : '4px 4px 0px 0px rgba(26,26,26,1)',
+                ? '4px 4px 0px 0px var(--red)'
+                : 'var(--shadow-hard)',
             }}
           >
             <div className="flex flex-col sm:flex-row gap-3">
@@ -287,8 +295,13 @@ export default function App() {
                   autoComplete="off"
                   spellCheck={false}
                   disabled={loading}
-                  className="w-full px-5 py-4 pr-16 rounded-xl bg-white border border-[#1A1A1A]/15 focus:outline-none focus:border-[#E5342A] text-[#1A1A1A] font-bold text-[13px] placeholder:text-black/25 transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed"
-                  style={{ fontFamily: 'var(--font-mono)' }}
+                  className="w-full px-5 py-4 pr-16 rounded-xl focus:outline-none text-[13px] placeholder:opacity-40 transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed font-bold"
+                  style={{ 
+                    fontFamily: 'var(--font-mono)',
+                    background: 'var(--input-bg)',
+                    border: '1px solid var(--input-border)',
+                    color: 'var(--ink)'
+                  }}
                 />
 
                 {/* Clear button — shown when there's text and not loading */}
@@ -296,10 +309,11 @@ export default function App() {
                   <button
                     type="button"
                     onClick={handleClear}
-                    className="absolute right-3.5 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-black/8 hover:bg-black/15 flex items-center justify-center transition-colors duration-150 cursor-pointer"
+                    className="absolute right-3.5 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full flex items-center justify-center transition-colors duration-150 cursor-pointer"
+                    style={{ background: 'var(--border)' }}
                     title="Clear"
                   >
-                    <svg viewBox="0 0 12 12" fill="none" className="w-3 h-3 text-black/50">
+                    <svg viewBox="0 0 12 12" fill="none" className="w-3 h-3" style={{ color: 'var(--ink-muted)' }}>
                       <path d="M9 3L3 9M3 3l6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
                     </svg>
                   </button>
@@ -308,7 +322,14 @@ export default function App() {
                 {/* Keyboard hint — shown when input is empty */}
                 {!repoInput && (
                   <div className="absolute right-3.5 top-1/2 -translate-y-1/2 hidden sm:flex items-center gap-1 pointer-events-none">
-                    <kbd className="text-[9px] font-black px-1.5 py-0.5 rounded border border-black/15 text-black/30 bg-black/3">↵</kbd>
+                    <kbd 
+                      className="text-[9px] font-black px-1.5 py-0.5 rounded"
+                      style={{ 
+                        border: '1px solid var(--border)',
+                        color: 'var(--ink-subtle)',
+                        background: 'var(--bg)'
+                      }}
+                    >↵</kbd>
                   </div>
                 )}
               </div>
@@ -318,9 +339,11 @@ export default function App() {
                 id="get-prompt-btn"
                 onClick={() => handleGenerate()}
                 disabled={loading}
-                className="relative px-8 py-4 rounded-xl font-black text-white text-sm uppercase tracking-wider overflow-hidden cursor-pointer transition-all duration-150 whitespace-nowrap border border-[#1A1A1A] disabled:cursor-wait active:translate-x-[2px] active:translate-y-[2px] active:shadow-none"
+                className="relative px-8 py-4 rounded-xl font-black text-white text-sm uppercase tracking-wider overflow-hidden cursor-pointer transition-all duration-150 whitespace-nowrap disabled:cursor-wait active:translate-x-[2px] active:translate-y-[2px] active:shadow-none"
                 style={{
-                  background: loading ? 'rgba(229, 52, 42, 0.7)' : '#E5342A',
+                  background: loading ? 'var(--red)' : 'var(--red)',
+                  opacity: loading ? 0.7 : 1,
+                  border: '1px solid var(--border-strong)',
                   boxShadow: loading ? 'none' : 'var(--shadow-btn)',
                 }}
               >

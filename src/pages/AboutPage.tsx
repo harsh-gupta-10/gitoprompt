@@ -7,17 +7,24 @@ export default function AboutPage() {
       <main className="flex-grow max-w-[720px] mx-auto px-6 py-16 w-full">
         {/* Page heading */}
         <div className="mb-16 anim-fade-up">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-[#1A1A1A]/12 bg-white/60 backdrop-blur-sm text-[10px] font-bold uppercase tracking-widest text-[#1A1A1A]/50 mb-5">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#E5342A]" />
+          <div 
+            className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full backdrop-blur-sm text-[10px] font-bold uppercase tracking-widest mb-5"
+            style={{
+              border: '1px solid var(--border)',
+              background: 'var(--badge-bg)',
+              color: 'var(--ink-muted)'
+            }}
+          >
+            <span className="w-1.5 h-1.5 rounded-full" style={{ background: 'var(--red)' }} />
             About
           </div>
           <h1
-            className="text-4xl sm:text-5xl font-black leading-[1.1] tracking-tight text-[#1A1A1A] mb-5"
-            style={{ fontFamily: 'var(--font-display)' }}
+            className="text-4xl sm:text-5xl font-black leading-[1.1] tracking-tight mb-5"
+            style={{ fontFamily: 'var(--font-display)', color: 'var(--ink)' }}
           >
-            What is <span style={{ color: '#E5342A' }}>GitoPrompt</span>?
+            What is <span style={{ color: 'var(--red)' }}>GitoPrompt</span>?
           </h1>
-          <p className="text-[15px] text-black/50 leading-relaxed max-w-[560px]">
+          <p className="text-[15px] leading-relaxed max-w-[560px]" style={{ color: 'var(--ink-muted)' }}>
             GitoPrompt reverse-engineers any public GitHub repository into the AI prompt
             that could have built it. Paste a repo URL and get back a detailed, first-person
             prompt ready to feed into your favorite AI coding assistant.
@@ -27,8 +34,8 @@ export default function AboutPage() {
         {/* How it works — 3 steps */}
         <div className="mb-16 anim-fade-up" style={{ animationDelay: '0.1s' }}>
           <h2
-            className="text-2xl font-black tracking-tight text-[#1A1A1A] mb-8"
-            style={{ fontFamily: 'var(--font-display)' }}
+            className="text-2xl font-black tracking-tight mb-8"
+            style={{ fontFamily: 'var(--font-display)', color: 'var(--ink)' }}
           >
             How It Works
           </h2>
@@ -71,19 +78,26 @@ export default function AboutPage() {
             ].map((item) => (
               <div
                 key={item.step}
-                className="relative p-6 rounded-2xl border-2 border-[#1A1A1A] bg-white transition-all duration-200 hover:-translate-y-1"
-                style={{ boxShadow: '4px 4px 0px 0px rgba(26,26,26,1)' }}
+                className="relative p-6 rounded-2xl transition-all duration-200 hover:-translate-y-1"
+                style={{ 
+                  border: '2px solid var(--border-strong)',
+                  background: 'var(--bg-3)',
+                  boxShadow: 'var(--shadow-hard)'
+                }}
               >
-                <div className="w-10 h-10 rounded-xl bg-[#E5342A] flex items-center justify-center text-white mb-4">
+                <div 
+                  className="w-10 h-10 rounded-xl flex items-center justify-center text-white mb-4"
+                  style={{ background: 'var(--red)' }}
+                >
                   {item.icon}
                 </div>
-                <div className="text-[10px] font-black text-[#E5342A] uppercase tracking-widest mb-1">
+                <div className="text-[10px] font-black uppercase tracking-widest mb-1" style={{ color: 'var(--red)' }}>
                   Step {item.step}
                 </div>
-                <h3 className="text-base font-black text-[#1A1A1A] mb-2" style={{ fontFamily: 'var(--font-display)' }}>
+                <h3 className="text-base font-black mb-2" style={{ fontFamily: 'var(--font-display)', color: 'var(--ink)' }}>
                   {item.title}
                 </h3>
-                <p className="text-[13px] text-black/45 leading-relaxed">
+                <p className="text-[13px] leading-relaxed" style={{ color: 'var(--ink-muted)' }}>
                   {item.desc}
                 </p>
               </div>
@@ -93,8 +107,8 @@ export default function AboutPage() {
 
         {/* Built by */}
         <div
-          className="p-8 rounded-2xl border-2 border-[#1A1A1A] bg-[#1a1a1a] text-white anim-fade-up"
-          style={{ animationDelay: '0.2s', boxShadow: '6px 6px 0px 0px rgba(229,52,42,1)' }}
+          className="p-8 rounded-2xl border-2 bg-[#1a1a1a] text-white anim-fade-up"
+          style={{ animationDelay: '0.2s', borderColor: 'var(--border-strong)', boxShadow: '6px 6px 0px 0px var(--red)' }}
         >
           <h2
             className="text-xl font-black tracking-tight mb-3"
@@ -111,7 +125,8 @@ export default function AboutPage() {
             href="https://github.com/harsh-gupta-10/gitoprompt"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#E5342A] hover:text-[#ff6b6b] transition-colors"
+            className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider transition-colors"
+            style={{ color: 'var(--red)' }}
           >
             View on GitHub →
           </a>

@@ -2,7 +2,13 @@ import { GithubIcon } from './Icons';
 
 export function SiteFooter() {
   return (
-    <footer className="w-full bg-[#1a1a1a] border-t border-white/5 mt-auto relative z-20">
+    <footer 
+      className="w-full border-t mt-auto relative z-20"
+      style={{ 
+        background: 'var(--card-bg)',
+        borderColor: 'var(--border)'
+      }}
+    >
       <div className="max-w-[900px] mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
         {/* Left */}
         <p className="text-[11px] font-bold text-white/25 tracking-wider order-2 sm:order-1">

@@ -3,19 +3,58 @@
 
 /* ── Design Tokens ── */
 :root {
+  /* Light mode (default) */
   --bg: #F5F0E8;
   --bg-2: #EAE4D9;
+  --bg-3: #ffffff;
   --ink: #1A1A1A;
+  --ink-muted: rgba(26, 26, 26, 0.5);
+  --ink-subtle: rgba(26, 26, 26, 0.25);
   --red: #E5342A;
   --yellow: #F5C842;
   --green: #22c55e;
   --card-bg: #1A1A1A;
   --border: rgba(26, 26, 26, 0.12);
+  --border-strong: rgba(26, 26, 26, 1);
   --shadow-hard: 4px 4px 0px 0px rgba(26,26,26,1);
   --shadow-btn: 2px 2px 0px 0px rgba(26,26,26,1);
+  --badge-bg: rgba(255, 255, 255, 0.6);
+  --chip-bg: transparent;
+  --chip-border: rgba(26, 26, 26, 0.15);
+  --chip-hover-border: rgba(26, 26, 26, 1);
+  --input-bg: #ffffff;
+  --input-border: rgba(26, 26, 26, 0.15);
+  --glow-color: rgba(229, 52, 42, 0.06);
+  --grid-color: rgba(26, 26, 26, 0.045);
   --font-display: 'Outfit', sans-serif;
   --font-body: 'Plus Jakarta Sans', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
+}
+
+/* Dark mode */
+:root.dark {
+  --bg: #0f0f0f;
+  --bg-2: #1a1a1a;
+  --bg-3: #252525;
+  --ink: #f5f5f5;
+  --ink-muted: rgba(245, 245, 245, 0.6);
+  --ink-subtle: rgba(245, 245, 245, 0.3);
+  --red: #ff5c4d;
+  --yellow: #F5C842;
+  --green: #4ade80;
+  --card-bg: #1a1a1a;
+  --border: rgba(255, 255, 255, 0.1);
+  --border-strong: rgba(255, 255, 255, 0.2);
+  --shadow-hard: 4px 4px 0px 0px rgba(229, 52, 42, 0.6);
+  --shadow-btn: 2px 2px 0px 0px rgba(229, 52, 42, 0.6);
+  --badge-bg: rgba(30, 30, 30, 0.8);
+  --chip-bg: rgba(255, 255, 255, 0.05);
+  --chip-border: rgba(255, 255, 255, 0.15);
+  --chip-hover-border: rgba(255, 255, 255, 0.4);
+  --input-bg: #1a1a1a;
+  --input-border: rgba(255, 255, 255, 0.15);
+  --glow-color: rgba(255, 92, 77, 0.1);
+  --grid-color: rgba(255, 255, 255, 0.03);
 }
 
 /* ── Base ── */
@@ -23,12 +62,18 @@
 
 html {
   scroll-behavior: smooth;
+  color-scheme: light;
+}
+
+html.dark {
+  color-scheme: dark;
 }
 
 body {
   background: var(--bg);
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* ── Keyframes ── */
@@ -197,8 +242,8 @@ body {
 /* ── Background grid pattern ── */
 .bg-grid {
   background-image: 
-    linear-gradient(rgba(26,26,26,0.045) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(26,26,26,0.045) 1px, transparent 1px);
+    linear-gradient(var(--grid-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
   background-size: 40px 40px;
 }
 

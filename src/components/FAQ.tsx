@@ -38,21 +38,31 @@ export function FAQ() {
     <section className="w-full py-20 anim-fade-up">
       <div className="max-w-[720px] mx-auto px-6">
         <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-[#1A1A1A]/12 bg-white/60 backdrop-blur-sm text-[10px] font-bold uppercase tracking-widest text-[#1A1A1A]/50 mb-4">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#F5C842]" />
+          <div 
+            className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full backdrop-blur-sm text-[10px] font-bold uppercase tracking-widest mb-4"
+            style={{ 
+              border: '1px solid var(--border)',
+              background: 'var(--badge-bg)',
+              color: 'var(--ink-muted)'
+            }}
+          >
+            <span className="w-1.5 h-1.5 rounded-full" style={{ background: 'var(--yellow)' }} />
             Questions
           </div>
           <h2
-            className="text-3xl sm:text-4xl font-black tracking-tight text-[#1A1A1A]"
-            style={{ fontFamily: 'var(--font-display)' }}
+            className="text-3xl sm:text-4xl font-black tracking-tight"
+            style={{ fontFamily: 'var(--font-display)', color: 'var(--ink)' }}
           >
             Frequently Asked Questions
           </h2>
         </div>
 
         <div
-          className="rounded-2xl border-2 border-[#1A1A1A] bg-[#1a1a1a] overflow-hidden"
-          style={{ boxShadow: '6px 6px 0px 0px rgba(229,52,42,1)' }}
+          className="rounded-2xl border-2 bg-[#1a1a1a] overflow-hidden"
+          style={{ 
+            borderColor: 'var(--border-strong)',
+            boxShadow: '6px 6px 0px 0px var(--red)' 
+          }}
         >
           {faqs.map((faq, i) => {
             const isOpen = openIndex === i;
@@ -71,7 +81,7 @@ export function FAQ() {
                     <span
                       className="w-6 h-6 rounded-lg flex items-center justify-center text-[10px] font-black flex-shrink-0 transition-colors duration-200"
                       style={{
-                        background: isOpen ? '#E5342A' : 'rgba(255,255,255,0.08)',
+                        background: isOpen ? 'var(--red)' : 'rgba(255,255,255,0.08)',
                         color: isOpen ? 'white' : 'rgba(255,255,255,0.4)',
                       }}
                     >

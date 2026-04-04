@@ -5,6 +5,17 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <!-- Theme detection (prevents flash of wrong theme) -->
+    <script>
+      (function() {
+        const stored = localStorage.getItem('gitoprompt-theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (stored === 'dark' || (!stored && prefersDark)) {
+          document.documentElement.classList.add('dark');
+        }
+      })();
+    </script>
+
     <!-- SEO -->
     <title>GitoPrompt – Reverse Engineer Any GitHub Repo into an AI Prompt</title>
     <meta name="description" content="Paste any public GitHub repository and get the original AI prompt that could have built it. Powered by NVIDIA AI." />

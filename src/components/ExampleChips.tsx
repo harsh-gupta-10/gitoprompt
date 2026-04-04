@@ -18,8 +18,8 @@ export function ExampleChips({ onSelect }: ExampleChipsProps) {
   return (
     <div className="flex flex-wrap items-center justify-center gap-2 mt-6">
       <span
-        className="text-[11px] font-bold uppercase tracking-widest text-black/30 mr-1 anim-fade-up"
-        style={{ animationDelay: '0.1s' }}
+        className="text-[11px] font-bold uppercase tracking-widest mr-1 anim-fade-up"
+        style={{ animationDelay: '0.1s', color: 'var(--ink-subtle)' }}
       >
         Try:
       </span>
@@ -31,8 +31,21 @@ export function ExampleChips({ onSelect }: ExampleChipsProps) {
             onSelect(ex.repo);
             setTimeout(() => setActive(null), 600);
           }}
-          className="chip-pop relative px-3 py-1.5 rounded-full bg-transparent border border-[#1A1A1A]/15 hover:border-[#1A1A1A] text-xs font-semibold text-[#1A1A1A]/60 hover:text-[#1A1A1A] transition-all duration-200 cursor-pointer overflow-hidden group"
-          style={{ animationDelay: `${0.12 + i * 0.055}s` }}
+          className="chip-pop relative px-3 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 cursor-pointer overflow-hidden group"
+          style={{ 
+            animationDelay: `${0.12 + i * 0.055}s`,
+            background: 'var(--chip-bg)',
+            border: '1px solid var(--chip-border)',
+            color: 'var(--ink-muted)'
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.borderColor = 'var(--chip-hover-border)';
+            e.currentTarget.style.color = 'var(--ink)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.borderColor = 'var(--chip-border)';
+            e.currentTarget.style.color = 'var(--ink-muted)';
+          }}
         >
           {/* Hover fill bg */}
           <span
