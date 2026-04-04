@@ -108,7 +108,7 @@ export default function AboutPage() {
             and create better AI prompts.
           </p>
           <a
-            href="https://github.com"
+            href="https://github.com/harsh-gupta-10/gitoprompt"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#E5342A] hover:text-[#ff6b6b] transition-colors"
