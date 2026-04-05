@@ -2,11 +2,8 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "framework": "vite",
+  "nodejs": "20.x",
   "rewrites": [
-    {
-      "source": "/api/hackclub/(.*)",
-      "destination": "https://ai.hackclub.com/:1*"
-    },
     {
       "source": "/api/nvidia/(.*)",
       "destination": "https://integrate.api.nvidia.com/:1*"
