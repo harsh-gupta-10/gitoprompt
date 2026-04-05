@@ -291,7 +291,7 @@ export default function App() {
             className="text-4xl sm:text-6xl font-black leading-[1.05] tracking-tight mb-4 anim-fade-up"
             style={{ animationDelay: '0.15s', fontFamily: 'var(--font-display)', color: 'var(--ink)' }}
           >
-            Repository
+            Repo
             <span className="relative mx-2 inline-block">
               <span
                 className="relative z-10"
@@ -300,7 +300,7 @@ export default function App() {
                 to
               </span>
             </span>
-            Prompt
+            Prompt ✨
           </h1>
 
           <p
