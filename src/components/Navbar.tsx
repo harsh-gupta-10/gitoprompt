@@ -62,7 +62,7 @@ export function Navbar() {
           }}
         >
           <span className="w-1.5 h-1.5 rounded-full bg-green-500 anim-heartbeat" />
-          NVIDIA AI
+          GPT-4o
         </span>
 
         {/* Theme toggle */}

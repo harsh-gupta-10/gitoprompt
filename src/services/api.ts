@@ -157,8 +157,8 @@ export async function callAI(apiKey: string, repoData: GitHubRepoData) {
 
   const userPrompt = `${SYSTEM_PROMPT}\n\nDraft a detailed prompt for this repository:\nRepo: ${repoData.name}\nDescription: ${repoData.description}\nLanguage: ${repoData.language}\nFile structure:\n${trimmedFiles}\n\nREADME:\n${trimmedReadme}`;
 
-  // NVIDIA API via Vite proxy to avoid CORS
-  const url = '/api/nvidia/v1/chat/completions';
+  // Hackclub API via Vite proxy to avoid CORS
+  const url = '/api/hackclub/proxy/v1/chat/completions';
 
   try {
     const res = await fetch(url, {
@@ -168,7 +168,7 @@ export async function callAI(apiKey: string, repoData: GitHubRepoData) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'qwen/qwen3.5-397b-a17b',
+        model: 'gpt-4o',
         messages: [
           {
             role: 'user',
@@ -181,8 +181,8 @@ export async function callAI(apiKey: string, repoData: GitHubRepoData) {
 
     if (!res.ok) {
       const errorData = await res.json().catch(() => ({}));
-      console.error('NVIDIA API Error Response:', errorData);
-      throw new Error(errorData.error?.message || errorData.detail || `NVIDIA API Error: ${res.status}`);
+      console.error('AI Error Response:', errorData);
+      throw new Error(errorData.error?.message || errorData.detail || `AI API Error: ${res.status}`);
     }
 
     const data = await res.json();
@@ -193,7 +193,7 @@ export async function callAI(apiKey: string, repoData: GitHubRepoData) {
 
     if (!text) {
       console.log('Could not extract text from:', rawResponse.slice(0, 500));
-      throw new Error('No readable response from NVIDIA AI.');
+      throw new Error('No readable response from the AI.');
     }
 
     return {
@@ -202,7 +202,7 @@ export async function callAI(apiKey: string, repoData: GitHubRepoData) {
     };
   } catch (err: any) {
     if (err.message === 'Failed to fetch') {
-      throw new Error("Network error: Could not reach NVIDIA API. Make sure your dev server is running with the proxy configured.");
+      throw new Error("Network error: Could not reach the AI API. Make sure your dev server is running with the proxy configured.");
     }
     throw err;
   }

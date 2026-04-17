@@ -118,7 +118,7 @@ export default function AboutPage() {
           </h2>
           <p className="text-sm text-white/50 leading-relaxed mb-4">
             GitoPrompt is an open-source tool crafted with React, TypeScript, Tailwind CSS, and
-            powered by NVIDIA AI. It was built to help developers understand existing codebases
+            powered by GPT-4o. It was built to help developers understand existing codebases
             and create better AI prompts.
           </p>
           <a

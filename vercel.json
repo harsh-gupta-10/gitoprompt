@@ -4,8 +4,8 @@
   "framework": "vite",
   "rewrites": [
     {
-      "source": "/api/nvidia/:path*",
-      "destination": "https://integrate.api.nvidia.com/:path*"
+      "source": "/api/hackclub/:path*",
+      "destination": "https://ai.hackclub.com/:path*"
     },
     {
       "source": "/(.*)",

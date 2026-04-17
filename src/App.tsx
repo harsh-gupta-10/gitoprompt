@@ -18,7 +18,7 @@ const STAGES = [
   'Checking database cache...',
   'Verifying repo freshness...',
   'Fetching repository data from GitHub...',
-  'Generating prompt with NVIDIA AI...',
+  'Generating prompt with GPT-4o...',
 ];
 
 function LoadingStage({ stage }: { stage: string }) {
@@ -74,8 +74,8 @@ function LoadingStage({ stage }: { stage: string }) {
 
 export default function App() {
   const [apiKey] = useState(() => {
-    const envKey = import.meta.env.VITE_NVIDA_API_KEY;
-    if (envKey && envKey !== '' && envKey !== 'your_nvidia_api_key_here') return envKey;
+    const envKey = import.meta.env.VITE_HACKCLUB_API_KEY;
+    if (envKey && envKey !== '' && envKey !== 'your_hackclub_api_key_here') return envKey;
     return localStorage.getItem(STORAGE_KEY) || '';
   });
 
@@ -96,7 +96,7 @@ export default function App() {
     if (!input) return;
 
     if (!apiKey) {
-      setError('NVIDIA API key is missing. Please set VITE_NVIDA_API_KEY in your .env file.');
+      setError('API key is missing. Please set VITE_HACKCLUB_API_KEY in your .env file.');
       return;
     }
 
@@ -159,7 +159,7 @@ export default function App() {
       setRepoTree(repoData.fileTree);
 
       // ── Step 4: Generate prompt with AI ──
-      setLoadingStage('Generating prompt with NVIDIA AI...');
+      setLoadingStage('Generating prompt with GPT-4o...');
       const promptResult = await callAI(apiKey, repoData);
       setResult(promptResult.text);
 
@@ -283,7 +283,7 @@ export default function App() {
             }}
           >
             <span className="w-1.5 h-1.5 rounded-full anim-heartbeat" style={{ background: 'var(--red)' }} />
-            NVIDIA AI
+            GPT-4o
           </div>
 
           {/* Main heading */}

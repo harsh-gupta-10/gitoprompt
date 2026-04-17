@@ -23,7 +23,7 @@ const faqs = [
   },
   {
     q: 'Which AI model does this use?',
-    a: 'GitoPrompt currently uses the Qwen 3.5 397B model via the NVIDIA API. The model was chosen for its excellent code understanding and detailed output quality.',
+    a: 'GitoPrompt currently uses the GPT-4o model via an integrated AI proxy. The model was chosen for its excellent code understanding and detailed output quality.',
   },
   {
     q: 'Why are some prompts generated instantly?',

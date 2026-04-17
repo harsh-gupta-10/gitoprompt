@@ -25,7 +25,7 @@ const steps = [
   {
     step: '3',
     title: 'Generate AI Prompt',
-    desc: 'NVIDIA AI analyzes the codebase and reverse-engineers a detailed, ready-to-use prompt.',
+    desc: 'GPT-4o analyzes the codebase and reverse-engineers a detailed, ready-to-use prompt.',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
         <path d="M12 3L14 10L21 12L14 14L12 21L10 14L3 12L10 10L12 3Z" />

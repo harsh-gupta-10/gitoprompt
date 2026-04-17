@@ -11,11 +11,6 @@ export default defineConfig({
         target: 'https://ai.hackclub.com',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api\/hackclub/, '')
-      },
-      '/api/nvidia': {
-        target: 'https://integrate.api.nvidia.com',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api\/nvidia/, '')
       }
     }
   }

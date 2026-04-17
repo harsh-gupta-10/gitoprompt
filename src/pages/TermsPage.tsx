@@ -18,7 +18,7 @@ export default function TermsPage() {
     {
       title: 'Disclaimers',
       content:
-        'GitoPrompt is not affiliated with, endorsed by, or sponsored by GitHub, Google, NVIDIA, or any other third party. The generated prompts are AI-generated approximations and may not accurately reflect the original development intent.',
+        'GitoPrompt is not affiliated with, endorsed by, or sponsored by GitHub, Google, OpenAI, or any other third party. The generated prompts are AI-generated approximations and may not accurately reflect the original development intent.',
     },
     {
       title: 'Limitation of Liability',

@@ -13,7 +13,7 @@ export default function PrivacyPolicyPage() {
     {
       title: 'Third-Party APIs',
       content:
-        'GitoPrompt uses the GitHub API to fetch public repository data and the NVIDIA AI API to generate prompts. These requests are made securely. We do not require or collect your personal API keys.',
+        'GitoPrompt uses the GitHub API to fetch public repository data and an integrated AI API to generate prompts. These requests are made securely. We do not require or collect your personal API keys.',
     },
     {
       title: 'Cookies & Tracking',
